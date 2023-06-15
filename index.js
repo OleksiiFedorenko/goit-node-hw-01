@@ -2,19 +2,14 @@ const contacts = require('./contacts.js');
 
 const invokeAction = async ({ action, id, name, email, phone }) => {
   switch (action) {
-    case 'getAll':
+    case 'list':
       const allContacts = await contacts.listContacts();
       console.log(allContacts);
       break;
 
-    case 'getById':
+    case 'get':
       const contact = await contacts.getContactById(id);
       console.log(contact);
-      break;
-
-    case 'removeById':
-      const removedContact = await contacts.removeContact(id);
-      console.log(removedContact);
       break;
 
     case 'add':
@@ -22,18 +17,23 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
       console.log(addedContact);
       break;
 
+    case 'remove':
+      const removedContact = await contacts.removeContact(id);
+      console.log(removedContact);
+      break;
+
     default:
-      console.log('Unknown action');
+      console.warn('\x1B[31m Unknown action type!');
       break;
   }
 };
 
-// invokeAction({ action: 'getAll' });
-// invokeAction({ action: 'getById', id: 'rsKkOQUi80UsgVPCcLZZW' });
-// invokeAction({ action: 'removeById', id: 'rsKkOQUi80UsgVPCcLZZW' });
-invokeAction({
-  action: 'add',
-  name: 'Alec Howard',
-  email: 'Donec.elementum@scelerisquescelerisquedui.net',
-  phone: '(748) 206-2688',
-});
+// invokeAction({ action: 'list' });
+// invokeAction({ action: 'get', id: 'rsKkOQUi80UsgVPCcLZZW' });
+// invokeAction({
+//   action: 'add',
+//   name: 'Alec Howard',
+//   email: 'Donec.elementum@scelerisquescelerisquedui.net',
+//   phone: '(748) 206-2688',
+// });
+// invokeAction({ action: 'remove', id: 'rsKkOQUi80UsgVPCcLZZW' });
