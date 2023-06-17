@@ -1,10 +1,11 @@
+const { program } = require('commander');
 const contacts = require('./contacts.js');
 
 const invokeAction = async ({ action, id, name, email, phone }) => {
   switch (action) {
     case 'list':
       const allContacts = await contacts.listContacts();
-      console.log(allContacts);
+      console.table(allContacts);
       break;
 
     case 'get':
@@ -28,12 +29,15 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
   }
 };
 
-// invokeAction({ action: 'list' });
-// invokeAction({ action: 'get', id: 'rsKkOQUi80UsgVPCcLZZW' });
-// invokeAction({
-//   action: 'add',
-//   name: 'Alec Howard',
-//   email: 'Donec.elementum@scelerisquescelerisquedui.net',
-//   phone: '(748) 206-2688',
-// });
-// invokeAction({ action: 'remove', id: 'rsKkOQUi80UsgVPCcLZZW' });
+program
+  .option('-a, --action, <tyype>')
+  .option('-i, --id, <tyype>')
+  .option('-n, --name, <tyype>')
+  .option('-e, --email, <tyype>')
+  .option('-p, --phone, <tyype>');
+
+program.parse();
+
+const options = program.opts();
+
+invokeAction(options);
